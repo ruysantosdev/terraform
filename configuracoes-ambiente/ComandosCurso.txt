@@ -1,0 +1,33 @@
+//Geração de par de chave publica e privada para usuário terraform AWS
+    ssh-keygen -f terraform-aws -t rsa
+
+//Mover chave privada para diretorio padrao de chaves ssh no mac
+ANTES ... 
+    Criar diretorio: ~/.ssh/
+    fonte: https://qastack.com.br/superuser/1256286/mac-os-x-high-sierra-missing-ssh-folder
+    Para isso seguir passo a passo abaixo:
+    1) ssh-keygen
+    2) Ele irá dizer "Digite o arquivo no qual salvar a chave (/Users/seudominio/.ssh/id_rsa)" .
+        Se você estiver satisfeito com o local padrão (~ / .ssh /), toque rapidamente em Voltar.
+        Dentro do seu shell, o ~personagem é equivalente a /Users/your-username/. Representa o seu diretório pessoal.
+        Agora ele vai dizer "Digite a senha (vazia para não usar senha):" . 
+        Digite sua senha e pressione Retornar.
+        Você é solicitado a digitar novamente a senha para confirmar que a digitou corretamente.
+        Essa senha é usada para criptografar a chave privada e é recomendável que você defina uma.
+        O prompt agora vai dizer “Sua identificação foi conservada em /Users/your-username/.ssh/id_rsa” e
+        “Sua chave pública foi gravada em /Users/your-username/.ssh/id_rsa.pub.”
+        Agora você pode ver o diretório .ssh recém-criado e encontrar sua chave.
+AGORA SIM ...
+    mv terraform-aws ~/.ssh/
+//Copiamos a chave publica também para o local padrão d chaves SSH no MAC por uma questão de organização
+    cp terraform-aws.pub ~/.ssh/
+
+//Após realizada a codificação o nosso main.tf 
+terraform init  - baixa fontes da aws para trabalho
+terraform plan  - planeja (ANTES DE APLICAR NA AWS) codificação IAC, emite erros
+                  caso tenha problema no IAC ou na aplicacao da infra na AWS 
+terraform apply - aplica na AWS  o IAC codado em TF.
+
+
+
+
